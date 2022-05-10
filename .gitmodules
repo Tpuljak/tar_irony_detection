@@ -1,3 +1,6 @@
 [submodule "SemEval2018-Task3"]
 	path = SemEval2018-Task3
 	url = https://github.com/Cyvhee/SemEval2018-Task3.git
+[submodule "Sarcasm-Detection"]
+	path = Sarcasm-Detection
+	url = https://github.com/Tpuljak/Sarcasm-Detection.git
