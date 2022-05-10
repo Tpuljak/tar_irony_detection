@@ -4,4 +4,4 @@
 	
 [submodule "Sarcasm-Detection"]
 	path = Sarcasm-Detection
-	url = https://github.com/Tpuljak/Sarcasm-Detection
+	url = https://github.com/Tpuljak/Sarcasm-Detection.git
