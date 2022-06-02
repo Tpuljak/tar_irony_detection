@@ -31,12 +31,6 @@ F.~Feigl, 1958.
 \newblock {\em Spot Tests in Organic Analysis}, chapter~6.
 \newblock Publisher publisher, 5th edition.
 
-\bibitem[\protect\citename{Howells}1951]{howells-51}
-W.~W. Howells.
-\newblock 1951.
-\newblock Factors of human physique.
-\newblock {\em American Journal of Physical Anthropology}, 9:159--192.
-
 \bibitem[\protect\citename{Johnson and Howells}1974]{johnson-howells}
 G.~B. Johnson and W.~W. Howells.
 \newblock 1974.
@@ -48,5 +42,11 @@ G.~B. Johnson, W.~W. Howells, and A.~N. Other.
 \newblock 1976.
 \newblock Title title title title title title title title title title.
 \newblock {\em Journal journal journal}.
+
+\bibitem[\protect\citename{Kreuz}2020]{kreutz-20}
+Roger~J. Kreuz.
+\newblock 2020.
+\newblock What makes something ironic?
+\newblock {\em The Conversation}, February.
 
 \end{thebibliography}

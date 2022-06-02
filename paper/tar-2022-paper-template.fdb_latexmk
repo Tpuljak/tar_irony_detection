@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex tar-2022-paper-template"] 1654131756 "tar-2022-paper-template.aux" "tar-2022-paper-template.bbl" "tar-2022-paper-template" 1654158996
+["bibtex tar-2022-paper-template"] 1654159651 "tar-2022-paper-template.aux" "tar-2022-paper-template.bbl" "tar-2022-paper-template" 1654159652
   "./tar2022.bst" 1654104405 22764 018f9025bbdd268dff4ff3d01283e34d ""
-  "tar-2022-paper-template.aux" 1654158996 872 85afa118313754c8207c4c313a9f4125 "pdflatex"
-  "tar2022.bib" 1654104405 24072 c024cc6aea870e99d1b4f5ca21a18634 ""
+  "tar-2022-paper-template.aux" 1654159652 890 296fc524f1d827f5e3fe8f86a98cfc71 "pdflatex"
+  "tar2022.bib" 1654159545 24028 5c4b8f386cf7e7c724a92fd075131e89 ""
   (generated)
   "tar-2022-paper-template.bbl"
   "tar-2022-paper-template.blg"
-["pdflatex"] 1654158996 "/Users/kristian/personal/tar_irony_detection/paper/tar-2022-paper-template.tex" "tar-2022-paper-template.pdf" "tar-2022-paper-template" 1654158996
-  "/Users/kristian/personal/tar_irony_detection/paper/tar-2022-paper-template.tex" 1654158995 8516 439333a3b74e3fa65b1917fa316b0d0f ""
+["pdflatex"] 1654159651 "/Users/kristian/personal/tar_irony_detection/paper/tar-2022-paper-template.tex" "tar-2022-paper-template.pdf" "tar-2022-paper-template" 1654159652
+  "/Users/kristian/personal/tar_irony_detection/paper/tar-2022-paper-template.tex" 1654159650 8469 2929e96c37a5d9366f33520d42c35e32 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -87,9 +87,9 @@
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1654104730 2826435 cd515621d9fd20338b9096303987ab03 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
   "drawing.pdf" 1654104405 3024 4e67c31ff14088a7d9b6d0cdad60cfde ""
-  "tar-2022-paper-template.aux" 1654158996 872 85afa118313754c8207c4c313a9f4125 "pdflatex"
-  "tar-2022-paper-template.bbl" 1654131757 1772 bbd0223f7be17fab2fba36511448f823 "bibtex tar-2022-paper-template"
-  "tar-2022-paper-template.tex" 1654158995 8516 439333a3b74e3fa65b1917fa316b0d0f ""
+  "tar-2022-paper-template.aux" 1654159652 890 296fc524f1d827f5e3fe8f86a98cfc71 "pdflatex"
+  "tar-2022-paper-template.bbl" 1654159651 1745 9d432736d2755db3020ab55184e6e96d "bibtex tar-2022-paper-template"
+  "tar-2022-paper-template.tex" 1654159650 8469 2929e96c37a5d9366f33520d42c35e32 ""
   "tar2022.sty" 1654104405 13457 c722be3d0f4101a5ab1bd822478bf8bc ""
   (generated)
   "tar-2022-paper-template.aux"
