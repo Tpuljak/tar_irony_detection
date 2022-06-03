@@ -11,6 +11,7 @@
 \usepackage{booktabs}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{hyperref}
 
 \title{Making your tweets more ironic}
 
@@ -19,7 +20,7 @@
 \address{
 University of Zagreb, Faculty of Electrical Engineering and Computing\\
 Unska 3, 10000 Zagreb, Croatia\\ 
-\texttt{\{autor\}@fer.hr}\\
+\texttt{\{author\}@fer.hr}\\
 }
           
          
@@ -33,36 +34,91 @@ This document provides the instructions on formatting the TAR system description
 
 \section{Introduction}
 
-Irony is complicated. Most people can probably tell if something is ironic or not when they see it. On the other hand, majority can't actually explain what it really is, and that's pretty ironic. In general, irony refers to a clash between expectation and outcome of an expression. \citep{kreutz-20}. 
+Irony is complicated.
+% Most people can probably tell if something is ironic or not when they see it.
+% On the other hand, majority can't actually explain what it really is, and that's pretty ironic.
+In general, irony refers to a clash between expectation and outcome of an expression. \citep{kreutz-20}. 
+While this definition looks simple enough, detecting irony in text proves to be a difficult task, not only for models, but for people sometimes as well.
+This paper tackles the question: "What makes tweets ironic?" by analysing attention values outputed from a classification model.
 
-Such expression can be detected as irony by a various tools.
+The attention mechanism allows modeling of dependencies without regard to their distance in the input or output sequence (CITE FROM ATTENTION IS ALL YOU NEED).
+What's great about attention is that it adds a layer or explainability to the model. Attention values can be used to interpret the focus of a model when completing various tasks.
+In this paper, attention values are used to gather most ironic tokens from data samples. Most ironic tokens being those with the highest attention values.
 
-There are plenty of papers that do irony detection.
+For classification purposes, we used a pretrained RoBERTa Transformer model that was trained on the SemEval2018 Irony Detection dataset (REFERENCE TO THE TRANSFORMER AND DATASET).
+The model uses multi-head attention, thus we used the \textit{attention rollout} method to aggregate attention values across heads for single tokens and connections between token pairs.
 
-By using an attention mechanism, papers have created a model that can define which words have the biggest impact in making the expression ironic. (list of references to such papers, )
+Once we gathered the most ironic tokens, we applied them to tweets that the model classified as \textit{non ironic} and observed the change between the prediction certainty.
+We use this change in prediction certainty as a metric to evaluate how much a token, or token pair, impacts the ironic sentiment of a given tweet.
 
-Since the outcome and the expectation on are opposite, we found what are the key word and word phrases key to make the expression ironic. To find those words, we used attention mechanism.
+\section{Background}
 
-\section{Second section}
+In this section, we provide an overview of the classification model setup, attention aggregation methods and the datasets evaluate our analysis goal.
 
-In scientific papers, this section usually (but not necessarily) briefly describes the related research and what makes the presented approach different from it.
-
-\subsection{First subsection}
+\subsection{Model setup}
 \label{sec:first}
 
-This is a subsection of the second section.
+For classification purposes, we used a pretrained RoBERTa Transformer model that had the best performance in irony detection.
+The model can be found here: \url{https://huggingface.co/cardiffnlp/twitter-roberta-base-irony}.
+RoBERTa is a retrained BERT model with improved performance. The details of the architecture can be found in (CITATION). 
 
-\subsection{Second subsection}
+\subsection{Attention aggregation}
+\label{sec:attaggr}
 
-This is the second subsection of the second section. Referencing the (sub)sections in text is performed as follows: ``in Section~\ref{sec:first} we have shown \dots''.
+To aggregate attention values into a singular output we use the \textit{attention rollout} method.
+Attention rollout is a recursive method that calculates the product of all attention weights in the attention graph. (CITE)
+This method will compute a singular output for a single token (node) that we feed into it and if we squeeze the resulting matrix without extraction, we get attention values for two connected tokens in the input sentence.
 
-\subsubsection{Sub-subsection example} 
+\subsection{Dataset}
 
-This is a sub-subsection. If possible, it is better to avoid sub-subsections. 
+The dataset used to train the RoBERTa model for irony detection is the SemEval2018 Irony Detection dataset (CITE DATASET) which is presplit into training and testing sets.
+Each tweet is annotated with a binary label of 0 or 1, representing a non-ironic and ironic label respectively.
 
-\section{Extent of the paper}
+% This is the second subsection of the second section. Referencing the (sub)sections in text is performed as follows: ``in Section~\ref{sec:first} we have shown \dots''.
 
-The paper should have a minimum of 3 and a maximum of 4 pages, plus an additional page for references.
+% \subsubsection{Sub-subsection example} 
+
+% This is a sub-subsection. If possible, it is better to avoid sub-subsections. 
+
+\section{Analysing the most ironic tokens}
+
+In this section, we will cover the process of finding the most ironic tokens from the used dataset and the methods used for evaluating the results.
+
+\subsection{Finding the tokens}
+
+The first step in finding the tokens is to extract all tweets that were annotated as ironic from the training and testing datasets, keeping them separate so we can test the results of the experiment separately.
+We then classified those tweets using the RoBERTa model to obtain a confidence score for each label.
+Sorting the tweets regarding to their ironic label confidence score we obtained a list of the most ironic tweets in the datasets, accoring to the model.
+A list of the most ironic tweets can be seen in (ADD TABLE 1).
+
+Once we obtained the list of the most ironic tweets, we performed attention aggregation methods outlined in Section~\ref{sec:attaggr} and sorted the tokens by the attention score in a descending order.
+That gives us a list of singular and two connected tokens that the model deemed most ironic for each of the most ironic tweets. 
+The obtained list can be seen in (ADD TABLE 2).
+
+\subsection{Adding the tokens to non ironic text}
+
+Using a similar method to extracting the most ironic tweets, we obtained a list of tweets with the highest non ironic confidence score.
+We used a subset of this list for analysing the impact of newly introduced ironic tokens. (DEFINE EXACTLY THE SUBSET)
+
+To add the ironic tokens into the non-ironic text we simply appended them to the end of the tweet. This was done for each token in the list applied to each tweet in the subset.
+We are aware that simply appending the token, or tokens, to the end of a tweet may generate something meaningless but ensuring that the newely formed tweet is semanticaly correct is out of the scope of this paper and we leave that for future work.
+
+\section{Results}
+
+\subsection{Single token}
+
+We analysed (X) tweets paired with (Y) tokens. A sample of the top (N) and bottom (M) changes in non-ironic confidence scores can be seen in (ADD TABLE), with the full results available at: (LINK TO GITHUB).
+
+The table show that the "most ironic" token was (X) and the "least ironic" was (Y). (ADD MORE COMMENTS ON THE RESULTS)
+
+\subsection{Two tokens}
+
+We analysed (X) tweets paired with (Y) pairs of tokens. A sample of the top (N) and bottom (M) changes in non-ironic confidence scores can be seen in (ADD TABLE), with the full results available at: (LINK TO GITHUB).
+
+The table show that the "most ironic" pair of tokens was (X) and the "least ironic" was (Y). (ADD MORE COMMENTS ON THE RESULTS)
+
+\section{Conclusion}
+
 
 \section{Figures and tables}
 
