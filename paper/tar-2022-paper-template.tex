@@ -11,7 +11,7 @@
 \usepackage{booktabs}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 
 \title{Making your tweets more ironic}
 
@@ -35,8 +35,6 @@ This document provides the instructions on formatting the TAR system description
 \section{Introduction}
 
 Irony is complicated.
-% Most people can probably tell if something is ironic or not when they see it.
-% On the other hand, majority can't actually explain what it really is, and that's pretty ironic.
 In general, irony refers to a clash between expectation and outcome of an expression. \citep{kreutz-20}. 
 While this definition looks simple enough, detecting irony in text proves to be a difficult task, not only for models, but for people sometimes as well.
 This paper tackles the question: "What makes tweets ironic?" by analysing attention values outputed from a classification model.
@@ -55,189 +53,218 @@ We use this change in prediction certainty as a metric to evaluate how much a to
 
 In this section, we provide an overview of the classification model setup, attention aggregation methods and the datasets evaluate our analysis goal.
 
-\subsection{Model setup}
+\subsection{Model Setup}
 \label{sec:first}
 
 For classification purposes, we used a pretrained RoBERTa Transformer model that had the best performance in irony detection.
 The model can be found here: \url{https://huggingface.co/cardiffnlp/twitter-roberta-base-irony}.
 RoBERTa is a retrained BERT model with improved performance. The details of the architecture can be found in (CITATION). 
 
-\subsection{Attention aggregation}
+\subsection{Attention as an Interpretation Metric}
+
+Using attention as an interpretation metric is arguable and research by (CITE https://aclanthology.org/P19-1282.pdf) shows that it doesn't necessarily produce correct importance ranking.
+Nonetheless, we use attention values to interpret how ironic are the tokens, or token pairs.
+
+We considered the alternative of analysing all tokens from selected ironic tweets, but that would require a lot of computation time which we leave for future work.
+
+\subsection{Attention Aggregation}
 \label{sec:attaggr}
 
 To aggregate attention values into a singular output we use the \textit{attention rollout} method.
 Attention rollout is a recursive method that calculates the product of all attention weights in the attention graph. (CITE)
 This method will compute a singular output for a single token (node) that we feed into it and if we squeeze the resulting matrix without extraction, we get attention values for two connected tokens in the input sentence.
 
-\subsection{Dataset}
+\subsection{Data}
 
 The dataset used to train the RoBERTa model for irony detection is the SemEval2018 Irony Detection dataset (CITE DATASET) which is presplit into training and testing sets.
 Each tweet is annotated with a binary label of 0 or 1, representing a non-ironic and ironic label respectively.
 
-% This is the second subsection of the second section. Referencing the (sub)sections in text is performed as follows: ``in Section~\ref{sec:first} we have shown \dots''.
+We applied a simple preprocessing step for all tweets which changes all user tags to \textit{@user} and removes all URLs.
+This step ensures that tagging specific users in tweets doesn't affect the tokenization and that URLs don't affect the model at all because they, by themselfs, do not add any semantic value to the tweet.
 
-% \subsubsection{Sub-subsection example} 
-
-% This is a sub-subsection. If possible, it is better to avoid sub-subsections. 
-
-\section{Analysing the most ironic tokens}
+\section{Analysing the Most Ironic Tokens}
 
 In this section, we will cover the process of finding the most ironic tokens from the used dataset and the methods used for evaluating the results.
 
-\subsection{Finding the tokens}
+\subsection{Finding the Tokens}
 
 The first step in finding the tokens is to extract all tweets that were annotated as ironic from the training and testing datasets, keeping them separate so we can test the results of the experiment separately.
 We then classified those tweets using the RoBERTa model to obtain a confidence score for each label.
 Sorting the tweets regarding to their ironic label confidence score we obtained a list of the most ironic tweets in the datasets, accoring to the model.
-A list of the most ironic tweets can be seen in (ADD TABLE 1).
+The five most ironic tweets from the training and testing datasets can be seen in Table~\ref{tab:most-ironic-train} and ~\ref{tab:most-ironic-test} respectively.
 
-Once we obtained the list of the most ironic tweets, we performed attention aggregation methods outlined in Section~\ref{sec:attaggr} and sorted the tokens by the attention score in a descending order.
-That gives us a list of singular and two connected tokens that the model deemed most ironic for each of the most ironic tweets. 
-The obtained list can be seen in (ADD TABLE 2).
+\begin{table*}
+\caption{Most Ironic Tweets in the Training Set}
+\label{tab:most-ironic-train}
+\begin{center}
+\begin{tabular}{llr}
+\toprule
+Tweet & Confidence score\\
+\midrule
+Yay for getting pink eye again!  \#whyme                                                & 1 \\
+@user yay!!!! It works  \#HateWhenThingsDontWorkRight                                   & 0.99 \\
+@user great Christmas.                                                                  & 0.99 \\
+Well done @user for making it possible to get emergency messages to a member of staff.  & 0.99 \\
+Isn't it great to sleep 5 hours and feel like a million bucks?  \#gettingold            & 0.99 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
 
-\subsection{Adding the tokens to non ironic text}
+\begin{table*}
+\caption{Most Ironic Tweets in the Test Set}
+\label{tab:most-ironic-test}
+\begin{center}
+\begin{tabular}{llr}
+\toprule
+Tweet & Confidence score\\
+\midrule
+Just great when you're mobile bill arrives by text                                          & 1 \\
+OH and now the District line has major signal failures and delays FANTASTIC!!!              & 0.99 \\
+A wonderful day of starting work at 6am                                                     & 0.99 \\
+Having to be up in four hours sounds great                                                  & 0.99 \\
+@user @user @user @user @user  nice to see the ambulance service is so important to OUR mps & 0.99 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
 
-Using a similar method to extracting the most ironic tweets, we obtained a list of tweets with the highest non ironic confidence score.
-We used a subset of this list for analysing the impact of newly introduced ironic tokens. (DEFINE EXACTLY THE SUBSET)
+Once we obtained the list of the most ironic tweets, we performe attention aggregation methods outlined in Section~\ref{sec:attaggr} and sort the tokens by the attention score in descending order.
+That gives us a list of singular and two connected tokens that the model focused more while performing classification.
+A subset of obtained singular and token pairs for the tweet "Yay for getting pink eye again!  \#whyme" can be seen in Table~\ref{tab:attention-tokens-single} and ~\ref{tab:attention-tokens-pairs} respectively.
+
+\begin{table*}
+\caption{Single Tokens With Highest Attention}
+\label{tab:attention-tokens-single}
+\begin{center}
+\begin{tabular}{llr}
+\toprule
+Token & Attention score\\
+\midrule
+me    & 1 \\
+Y     & 0.37 \\
+pink  & 0.33 \\
+ay    & 0.29 \\
+why   & 0.14 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
+
+\begin{table*}
+\caption{Token Pairs With Highest Attention}
+\label{tab:attention-tokens-pairs}
+\begin{center}
+\begin{tabular}{llr}
+\toprule
+Token1 & Token2 & Attention score\\
+\midrule
+ay                  & Y & 0.6 \\
+\#                  & Y & 0.6 \\
+\textvisiblespace   & Y & 0.6 \\
+me                  & Y & 0.6 \\
+again               & Y & 0.6 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
+
+\subsection{Adding Ironic Tokens to Non-ironic Text}
+
+For non ironic text, we randomly sampled 100 tweets, labeled as non ironic, from the train and test datasets.
 
 To add the ironic tokens into the non-ironic text we simply appended them to the end of the tweet. This was done for each token in the list applied to each tweet in the subset.
 We are aware that simply appending the token, or tokens, to the end of a tweet may generate something meaningless but ensuring that the newely formed tweet is semanticaly correct is out of the scope of this paper and we leave that for future work.
 
 \section{Results}
 
-\subsection{Single token}
+\subsection{Single Token}
 
-We analysed (X) tweets paired with (Y) tokens. A sample of the top (N) and bottom (M) changes in non-ironic confidence scores can be seen in (ADD TABLE), with the full results available at: (LINK TO GITHUB).
+We analysed (X) tweets paired with 10 tokens. A sample of the top (N) and bottom (M) changes in non-ironic confidence scores can be seen in (ADD TABLE), with the full results available at: (LINK TO GITHUB).
 
-The table show that the "most ironic" token was (X) and the "least ironic" was (Y). (ADD MORE COMMENTS ON THE RESULTS)
+The results show that the token with the most influence on the ironic sentiment was (X) and that token (Y) emphasizes the non ironic sentiment of a tweet. (ADD MORE COMMENTS ON THE RESULTS)
 
-\subsection{Two tokens}
+\subsection{Token Pairs}
 
-We analysed (X) tweets paired with (Y) pairs of tokens. A sample of the top (N) and bottom (M) changes in non-ironic confidence scores can be seen in (ADD TABLE), with the full results available at: (LINK TO GITHUB).
+We analysed 100 tweets paired with 200 pairs of tokens, producing a total of 20 000 new tweets. A sample of the top (N) and bottom (M) changes in non-ironic confidence scores can be seen in (ADD TABLE), with the full results available at: (LINK TO GITHUB).
 
-The table show that the "most ironic" pair of tokens was (X) and the "least ironic" was (Y). (ADD MORE COMMENTS ON THE RESULTS)
+The results show that the token pair with the most influence on the ironic sentiment was (X) and that token pair (Y) emphasizes the non ironic sentiment of a tweet. (ADD MORE COMMENTS ON THE RESULTS)
 
-\section{Conclusion}
+\section{Future Work}
 
+Even though we have managed to change ironic sentiment by applying ironic tokens to tweets, we propose a more robust approach that takes into account that the semantics of a tweet remain intact after adding the token.
+Additionally, possible exploration of adding tokens at arbitrary points in the tweet, not only at the end.
 
-\section{Figures and tables}
-
-\subsection{Figures}
-
-Here is an example on how to include figures in the paper. Figures are included in \LaTeX{} code immediately \textit{after} the text in which these figures are referenced. Allow \LaTeX{} to place the figure where it believes is best (usually on top of the page of at the position where you would not place the figure). Figures are referenced as follows: ``Figure~\ref{fig:figure1} shows \dots''. Use tilde (\verb.~.) to prevent separation between the word ``Figure'' and its enumeration. 
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\columnwidth]{drawing.pdf}
-\caption{This is the figure caption. Full sentences should be followed with a dot. The caption should be placed \textit{below} the figure. Caption should be short; details should be explained in the text.}
-\label{fig:figure1}
-\end{center}
-\end{figure}
-
-\subsection{Tables}
-
-There are two types of tables: narrow tables that fit into one column and a wide table that spreads over both columns.
-
-\subsubsection{Narrow tables}
-
-Table~\ref{tab:narrow-table} is an example of a narrow table. Do not use vertical lines in tables -- vertical tables have no effect and they make tables visually less attractive. We recommend using \textit{booktabs} package for nicer tables.
-
-\begin{table}
-\caption{This is the caption of the table. Table captions should be placed \textit{above} the table.}
-\label{tab:narrow-table}
-\begin{center}
-\begin{tabular}{ll}
-\toprule
-Heading1 & Heading2 \\
-\midrule
-One & First row text \\
-Two   & Second row text \\
-Three   & Third row text \\
-      & Fourth row text \\
-\bottomrule
-\end{tabular}
-\end{center}
-\end{table}
-
-\subsection{Wide tables}
-
-Table~\ref{tab:wide-table} is an example of a wide table that spreads across both columns. The same can be done for wide figures that should spread across the whole width of the page. 
-
-\begin{table*}
-\caption{Wide-table caption}
-\label{tab:wide-table}
-\begin{center}
-\begin{tabular}{llr}
-\toprule
-Heading1 & Heading2 & Heading3\\
-\midrule
-A & A very long text, longer that the width of a single column & $128$\\
-B & A very long text, longer that the width of a single column & $3123$\\
-C & A very long text, longer that the width of a single column & $-32$\\
-\bottomrule
-\end{tabular}
-\end{center}
-\end{table*}
-
-\section{Math expressions and formulas}
-
-Math expressions and formulas that appear within the sentence should be written inside the so-called \emph{inline} math environment: $2+3$, $\sqrt{16}$, $h(x)=\mathbf{1}(\theta_1 x_1 + \theta_0>0)$. Larger expressions and formulas (e.g., equations) should be written in the so-called \emph{displayed} math environment:
-
-\[
-b^{(i)}_k = \begin{cases}
-1 & \text{if 
-    $k = \text{argmin}_j \| \mathbf{x}^{(i)} - \mathbf{\mu}_j \|,$}\\
-0 & \text{otherwise}
-\end{cases}
-\]
-
-Math expressions which you reference in the text should be written inside the \textit{equation} environment:
-
-\begin{equation}\label{eq:kmeans-error}
-J = \sum_{i=1}^N \sum_{k=1}^K 
-b^{(i)}_k \| \mathbf{x}^{(i)} - \mathbf{\mu}_k \|^2
-\end{equation}
-
-Now you can reference equation \eqref{eq:kmeans-error}. If the paragraph continues right after the formula
-
-\begin{equation}
-f(x) = x^2 + \varepsilon
-\end{equation}
-
-\noindent like this one does, use the command \emph{noindent} after the equation to remove the indentation of the row. 
-
-Multi-letter words in the math environment should be written inside the command \emph{mathit}, otherwise \LaTeX{} will insert spacing between the letters to denote the multiplication of values denoted by symbols. For example, compare
-$\mathit{Consistent}(h,\mathcal{D})$ and\\
-$Consistent(h,\mathcal{D})$.
-
-If you need a math symbol, but you don't know the corresponding \LaTeX{} command that generates it, try
-\emph{Detexify}.\footnote{\texttt{http://detexify.kirelabs.org/}}
-
-\section{Referencing literature}
-
-References to other publications should be written in brackets with the last name of the first author and the year of publication, e.g., \citep{chomsky-73}.  Multiple references are written in sequence, one after another, separated by semicolon and without whitespaces in between, e.g., \citep{chomsky-73,chave-64,feigl-58}. References are typically written at the end of the sentence and necessarily before the sentence punctuation.
-
-If the publication is authored by more than one author, only the name of the first author is written, after which abbreviation \emph{et al.}, meaning \emph{et alia}, i.e.,~and others is written as in \citep{johnson-etc}. If the publication is authored by only two authors, then the last names of both authors are written \citep{johnson-howells}.
-
-If the name of the author is incorporated into the text of the sentence, it should not be in the brackets (only the year should be there). E.g.,~``\citet{chomsky-73}
-suggested that \dots''. The difference is whether you reference the publication or the author who wrote it. 
-
-The list of all literature references is given alphabetically at the end of the paper. The form of the reference depends on the type of the bibliographic unit: conference papers,
-\citep{chave-64}, books \citep{butcher-81}, journal articles
-\citep{howells-51}, doctoral dissertations \citep{croft-78}, and book chapters \citep{feigl-58}. 
-
-All of this is automatically produced when using BibTeX. Insert all the BibTeX entries into the file \texttt{tar2022.bib}, and then reference them via their symbolic names.
+As mentioned, a higher attention score doesn't necessarily mean that a token is more ironic, thus in future work, we could explore different metrics for obtaining tokens which we want to analyse.
 
 \section{Conclusion}
 
 Conclusion is the last enumerated section of the paper. It should not exceed half of a column and is typically split into 2--3 paragraphs. No new information should be presented in the conclusion; this section only summarizes and concludes the paper.
-
-\section*{Acknowledgements}
-
-If suitable, you can include the \textit{Acknowledgements} section before inserting the literature references  in order to thank those who helped you in any way to deliver the paper, but are not co-authors of the paper.
 
 \bibliographystyle{tar2022}
 \bibliography{tar2022} 
 
 \end{document}
 
+% \section{Figures and tables}
+
+% \subsection{Figures}
+
+% Here is an example on how to include figures in the paper. Figures are included in \LaTeX{} code immediately \textit{after} the text in which these figures are referenced. Allow \LaTeX{} to place the figure where it believes is best (usually on top of the page of at the position where you would not place the figure). Figures are referenced as follows: ``Figure~\ref{fig:figure1} shows \dots''. Use tilde (\verb.~.) to prevent separation between the word ``Figure'' and its enumeration. 
+
+% \begin{figure}
+% \begin{center}
+% \includegraphics[width=\columnwidth]{drawing.pdf}
+% \caption{This is the figure caption. Full sentences should be followed with a dot. The caption should be placed \textit{below} the figure. Caption should be short; details should be explained in the text.}
+% \label{fig:figure1}
+% \end{center}
+% \end{figure}
+
+% \section{Math expressions and formulas}
+
+% Math expressions and formulas that appear within the sentence should be written inside the so-called \emph{inline} math environment: $2+3$, $\sqrt{16}$, $h(x)=\mathbf{1}(\theta_1 x_1 + \theta_0>0)$. Larger expressions and formulas (e.g., equations) should be written in the so-called \emph{displayed} math environment:
+
+% \[
+% b^{(i)}_k = \begin{cases}
+% 1 & \text{if 
+%     $k = \text{argmin}_j \| \mathbf{x}^{(i)} - \mathbf{\mu}_j \|,$}\\
+% 0 & \text{otherwise}
+% \end{cases}
+% \]
+
+% Math expressions which you reference in the text should be written inside the \textit{equation} environment:
+
+% \begin{equation}\label{eq:kmeans-error}
+% J = \sum_{i=1}^N \sum_{k=1}^K 
+% b^{(i)}_k \| \mathbf{x}^{(i)} - \mathbf{\mu}_k \|^2
+% \end{equation}
+
+% Now you can reference equation \eqref{eq:kmeans-error}. If the paragraph continues right after the formula
+
+% \begin{equation}
+% f(x) = x^2 + \varepsilon
+% \end{equation}
+
+% \noindent like this one does, use the command \emph{noindent} after the equation to remove the indentation of the row. 
+
+% Multi-letter words in the math environment should be written inside the command \emph{mathit}, otherwise \LaTeX{} will insert spacing between the letters to denote the multiplication of values denoted by symbols. For example, compare
+% $\mathit{Consistent}(h,\mathcal{D})$ and\\
+% $Consistent(h,\mathcal{D})$.
+
+% If you need a math symbol, but you don't know the corresponding \LaTeX{} command that generates it, try
+% \emph{Detexify}.\footnote{\texttt{http://detexify.kirelabs.org/}}
+
+% \section{Referencing literature}
+
+% References to other publications should be written in brackets with the last name of the first author and the year of publication, e.g., \citep{chomsky-73}.  Multiple references are written in sequence, one after another, separated by semicolon and without whitespaces in between, e.g., \citep{chomsky-73,chave-64,feigl-58}. References are typically written at the end of the sentence and necessarily before the sentence punctuation.
+
+% If the publication is authored by more than one author, only the name of the first author is written, after which abbreviation \emph{et al.}, meaning \emph{et alia}, i.e.,~and others is written as in \citep{johnson-etc}. If the publication is authored by only two authors, then the last names of both authors are written \citep{johnson-howells}.
+
+% If the name of the author is incorporated into the text of the sentence, it should not be in the brackets (only the year should be there). E.g.,~``\citet{chomsky-73}
+% suggested that \dots''. The difference is whether you reference the publication or the author who wrote it. 
+
+% The list of all literature references is given alphabetically at the end of the paper. The form of the reference depends on the type of the bibliographic unit: conference papers,
+% \citep{chave-64}, books \citep{butcher-81}, journal articles
+% \citep{howells-51}, doctoral dissertations \citep{croft-78}, and book chapters \citep{feigl-58}. 
+
+% All of this is automatically produced when using BibTeX. Insert all the BibTeX entries into the file \texttt{tar2022.bib}, and then reference them via their symbolic names.
