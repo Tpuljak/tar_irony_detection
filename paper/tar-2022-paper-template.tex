@@ -25,7 +25,7 @@ Unska 3, 10000 Zagreb, Croatia\\
           
          
 \abstract{ 
-This document provides the instructions on formatting the TAR system description paper in \LaTeX{}. This is where you write the abstract (i.e., summary) of the work you carried out within the project. The abstract is a paragraph of text ranging between 70 and 150 words.
+With this paper, we present you the words that will make your tweets more ironic. The process of choosing which words have the biggest imapct to the irony started with RoBERTa model. The model was used for classification purposes. Once we found the ironic the tweet by using the attention as an interpretation metric we could see which word had the biggest impact to the desicion. Once we found the list of words, we took the words and non ironic tweets and try to make them ironic.
 }
 
 \begin{document}
@@ -208,7 +208,7 @@ Index & Tweet & Added Tokens & New Non-Ironic Score & Change\\
 \end{table*}
 
 The results show that the token pair with the most influence on the ironic sentiment was "Success \textvisiblespace " and that token pair "in It" emphasizes the non ironic sentiment of a tweet.
-Taking a look and the entire result list, we see that the tweet "Why I love penguins of Madagascar  #humor #reliefcomedy" has been greatly influenced by the appended tokens.
+Taking a look and the entire result list, we see that the tweet "Why I love penguins of Madagascar  \#humor \#reliefcomedy" has been greatly influenced by the appended tokens.
 Even though the tweet was actually labeled as ironic before appending the tokens, adding ironic tokens flipped its sentiment to non ironic.
 
 Regarding the tokens that most influenced the ironic sentiment, it is interesting to see token pair "wow \textvisiblespace ".
