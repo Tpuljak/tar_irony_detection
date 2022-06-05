@@ -169,11 +169,11 @@ again               & Y & 0.6 \\
 \end{center}
 \end{table*}
 
-\subsection{Adding Ironic Tokens to Non-ironic Text}
+\subsection{Adding Ironic Tokens to Tweets}
 
-For non ironic text, we randomly sampled 100 tweets, labeled as non ironic, from the train and test datasets.
+For tweets which we will analyse, we randomly sampled 100 tweets, from the train and test datasets.
 
-To add the ironic tokens into the non-ironic text we simply appended them to the end of the tweet. This was done for each token in the list applied to each tweet in the subset.
+To add the ironic tokens into the text we simply appended them to the end of the tweet. This was done for each token in the list applied to each tweet in the subset.
 We are aware that simply appending the token, or tokens, to the end of a tweet may generate something meaningless but ensuring that the newly formed tweet is semantically correct is out of the scope of this paper and we leave that for future work.
 
 \section{Results}
@@ -186,9 +186,33 @@ The results show that the token with the most influence on the ironic sentiment 
 
 \subsection{Token Pairs}
 
-We analysed 100 tweets paired with 200 pairs of tokens, producing a total of 20 000 new tweets. A sample of the top (N) and bottom (M) changes in non-ironic confidence scores can be seen in (ADD TABLE), with the full results available at: (LINK TO GITHUB).
+We analysed 100 tweets paired with top 10 pairs of tokens from the top 20 most ironic tweets, producing a total of 19799 new tweets. A sample of the top and bottom 3 changes in non-ironic confidence scores in the train set can be seen in Table~\ref{tab:token-pair-train-results}, with the full results available at: (LINK TO GITHUB).
 
-The results show that the token pair with the most influence on the ironic sentiment was (X) and that token pair (Y) emphasizes the non ironic sentiment of a tweet. (ADD MORE COMMENTS ON THE RESULTS)
+\begin{table*}
+\caption{Sample of Token Pair Results on the Train Set}
+\label{tab:token-pair-train-results}
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\toprule
+Index & Tweet & Added Tokens & New Non-Ironic Score & Change\\
+\midrule
+1     & Gah! Desperately trying to bust this cold!                & Success \textvisiblespace & 0.0267051 & 0.939541  \\
+2     & Gah! Desperately trying to bust this cold!                & what great                & 0.0322938 & 0.933953  \\
+3     & @BlogOfErised so I gave up and am now heading for bed orz & wow \textvisiblespace     & 0.0543532 & 0.918367  \\
+19797 & Why I love penguins of Madagascar \#humor \#reliefcomedy  & music It                  & 0.715983  & -0.552966 \\
+19798 & Why I love penguins of Madagascar \#humor \#reliefcomedy  & already @                 & 0.722912  & -0.559895 \\
+19799 & Why I love penguins of Madagascar \#humor \#reliefcomedy  & in It                     & 0.733982  & -0.570964 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
+
+The results show that the token pair with the most influence on the ironic sentiment was "Success \textvisiblespace " and that token pair "in It" emphasizes the non ironic sentiment of a tweet.
+Taking a look and the entire result list, we see that the tweet "Why I love penguins of Madagascar  #humor #reliefcomedy" has been greatly influenced by the appended tokens.
+Even though the tweet was actually labeled as ironic before appending the tokens, adding ironic tokens flipped its sentiment to non ironic.
+
+Regarding the tokens that most influenced the ironic sentiment, it is interesting to see token pair "wow \textvisiblespace ".
+Intuetively, "wow" can be seen as a sarcastic or ironic token from a semantic perspective, thus we are satisfied with the result.
 
 \section{Future Work}
 
