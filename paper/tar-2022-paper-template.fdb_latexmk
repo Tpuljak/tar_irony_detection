@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex tar-2022-paper-template"] 1654452088 "tar-2022-paper-template.aux" "tar-2022-paper-template.bbl" "tar-2022-paper-template" 1654452090
+["bibtex tar-2022-paper-template"] 1654452494 "tar-2022-paper-template.aux" "tar-2022-paper-template.bbl" "tar-2022-paper-template" 1654452497
   "./tar2022.bst" 1653849683 22764 018f9025bbdd268dff4ff3d01283e34d ""
-  "tar-2022-paper-template.aux" 1654452090 4801 f41e9920f25d1ad559f7837333761908 "pdflatex"
+  "tar-2022-paper-template.aux" 1654452496 4801 442f22db9b38ff5281bd1a9650c6f33b "pdflatex"
   "tar2022.bib" 1654418821 4649 6a69dc5fd4a7fb665b8c2cde288c35dc ""
   (generated)
   "tar-2022-paper-template.blg"
   "tar-2022-paper-template.bbl"
-["pdflatex"] 1654452088 "/Users/tomapuljak/Projects/tar_irony_detection/paper/tar-2022-paper-template.tex" "/Users/tomapuljak/Projects/tar_irony_detection/paper/tar-2022-paper-template.pdf" "tar-2022-paper-template" 1654452090
-  "/Users/tomapuljak/Projects/tar_irony_detection/paper/tar-2022-paper-template.aux" 1654452090 4801 f41e9920f25d1ad559f7837333761908 ""
-  "/Users/tomapuljak/Projects/tar_irony_detection/paper/tar-2022-paper-template.tex" 1654452085 15303 dac061acb8f9a147ff2db9adfc38ef6c ""
+["pdflatex"] 1654452494 "/Users/tomapuljak/Projects/tar_irony_detection/paper/tar-2022-paper-template.tex" "/Users/tomapuljak/Projects/tar_irony_detection/paper/tar-2022-paper-template.pdf" "tar-2022-paper-template" 1654452497
+  "/Users/tomapuljak/Projects/tar_irony_detection/paper/tar-2022-paper-template.aux" 1654452496 4801 442f22db9b38ff5281bd1a9650c6f33b ""
+  "/Users/tomapuljak/Projects/tar_irony_detection/paper/tar-2022-paper-template.tex" 1654452487 15669 e3f1c6675abcf89e044b3115fc9ac451 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -91,15 +91,15 @@
   "/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1586288239 4811913 0be9a7e86c70a26e5e3042966bcd7097 ""
   "/usr/local/texlive/2020/texmf-var/web2c/pdftex/pdflatex.fmt" 1601888436 2432467 65036b234dad45270691fc82f36bb910 ""
   "/usr/local/texlive/2020/texmf.cnf" 1586288231 577 d60164b4589a341208aff7a667fbbdcb ""
-  "tar-2022-paper-template.aux" 1654452090 4801 f41e9920f25d1ad559f7837333761908 "pdflatex"
-  "tar-2022-paper-template.bbl" 1654452088 1659 b75f9125fa4e64d8d432ac56572569b7 "bibtex tar-2022-paper-template"
-  "tar-2022-paper-template.out" 1654452090 833 a9555a2de4cd5910d1e4c1f6c1dd853e "pdflatex"
-  "tar-2022-paper-template.tex" 1654452085 15303 dac061acb8f9a147ff2db9adfc38ef6c ""
+  "tar-2022-paper-template.aux" 1654452496 4801 442f22db9b38ff5281bd1a9650c6f33b "pdflatex"
+  "tar-2022-paper-template.bbl" 1654452494 1659 b75f9125fa4e64d8d432ac56572569b7 "bibtex tar-2022-paper-template"
+  "tar-2022-paper-template.out" 1654452496 833 a9555a2de4cd5910d1e4c1f6c1dd853e "pdflatex"
+  "tar-2022-paper-template.tex" 1654452487 15669 e3f1c6675abcf89e044b3115fc9ac451 ""
   "tar2022.sty" 1653849683 13457 c722be3d0f4101a5ab1bd822478bf8bc ""
   (generated)
+  "tar-2022-paper-template.log"
   "tar-2022-paper-template.aux"
   "/Users/tomapuljak/Projects/tar_irony_detection/paper/tar-2022-paper-template.pdf"
   "/Users/tomapuljak/Projects/tar_irony_detection/paper/tar-2022-paper-template.log"
-  "tar-2022-paper-template.pdf"
-  "tar-2022-paper-template.log"
   "tar-2022-paper-template.out"
+  "tar-2022-paper-template.pdf"
