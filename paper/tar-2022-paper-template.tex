@@ -36,14 +36,14 @@ This document provides the instructions on formatting the TAR system description
 
 Irony is complicated.
 In general, irony refers to a clash between expectation and outcome of an expression. \citep{kreutz-20}. 
-While this definition looks simple enough, detecting irony in text proves to be a difficult task, not only for models, but for people sometimes as well.
-This paper tackles the question: "What makes tweets ironic?" by analysing attention values outputed from a classification model.
+While this definition looks simple enough, detecting irony in text proves to be a difficult task, not only for models, but for people as well.
+This paper tackles the question: "What makes tweets ironic?" by analysing attention values outputted from a classification model.
 
-The attention mechanism allows modeling of dependencies without regard to their distance in the input or output sequence (CITE FROM ATTENTION IS ALL YOU NEED).
+The attention mechanism allows modeling of dependencies without regard to their distance in the input or output sequence \citep{all-you-need}.
 What's great about attention is that it adds a layer or explainability to the model. Attention values can be used to interpret the focus of a model when completing various tasks.
 In this paper, attention values are used to gather most ironic tokens from data samples. Most ironic tokens being those with the highest attention values.
 
-For classification purposes, we used a pretrained RoBERTa Transformer model that was trained on the SemEval2018 Irony Detection dataset (REFERENCE TO THE TRANSFORMER AND DATASET).
+For classification purposes, we used a pretrained RoBERTa Transformer model that was trained on the SemEval2018 Irony Detection dataset \citep{roberta}.
 The model uses multi-head attention, thus we used the \textit{attention rollout} method to aggregate attention values across heads for single tokens and connections between token pairs.
 
 Once we gathered the most ironic tokens, we applied them to tweets that the model classified as \textit{non ironic} and observed the change between the prediction certainty.
@@ -58,11 +58,11 @@ In this section, we provide an overview of the classification model setup, atten
 
 For classification purposes, we used a pretrained RoBERTa Transformer model that had the best performance in irony detection.
 The model can be found here: \url{https://huggingface.co/cardiffnlp/twitter-roberta-base-irony}.
-RoBERTa is a retrained BERT model with improved performance. The details of the architecture can be found in (CITATION). 
+RoBERTa is a retrained BERT model with improved performance. The details of the architecture can be found in \citep{roberta}. 
 
 \subsection{Attention as an Interpretation Metric}
 
-Using attention as an interpretation metric is arguable and research by (CITE https://aclanthology.org/P19-1282.pdf) shows that it doesn't necessarily produce correct importance ranking.
+Using attention as an interpretation metric is arguable and research by \cite{attention-interpretable} shows that it doesn't necessarily produce correct importance ranking.
 Nonetheless, we use attention values to interpret how ironic are the tokens, or token pairs.
 
 We considered the alternative of analysing all tokens from selected ironic tweets, but that would require a lot of computation time which we leave for future work.
@@ -71,16 +71,16 @@ We considered the alternative of analysing all tokens from selected ironic tweet
 \label{sec:attaggr}
 
 To aggregate attention values into a singular output we use the \textit{attention rollout} method.
-Attention rollout is a recursive method that calculates the product of all attention weights in the attention graph. (CITE)
+Attention rollout is a recursive method that calculates the product of all attention weights in the attention graph. \citep{quantifying-attention-flow}
 This method will compute a singular output for a single token (node) that we feed into it and if we squeeze the resulting matrix without extraction, we get attention values for two connected tokens in the input sentence.
 
 \subsection{Data}
 
-The dataset used to train the RoBERTa model for irony detection is the SemEval2018 Irony Detection dataset (CITE DATASET) which is presplit into training and testing sets.
+The dataset used to train the RoBERTa model for irony detection is the SemEval2018 Irony Detection dataset \citep{van-hee-etal-2018-semeval} which is presplit into training and testing sets.
 Each tweet is annotated with a binary label of 0 or 1, representing a non-ironic and ironic label respectively.
 
 We applied a simple preprocessing step for all tweets which changes all user tags to \textit{@user} and removes all URLs.
-This step ensures that tagging specific users in tweets doesn't affect the tokenization and that URLs don't affect the model at all because they, by themselfs, do not add any semantic value to the tweet.
+This step ensures that tagging specific users in tweets doesn't affect the tokenization and that URLs don't affect the model at all because they, by themselves, do not add any semantic value to the tweet.
 
 \section{Analysing the Most Ironic Tokens}
 
@@ -90,7 +90,7 @@ In this section, we will cover the process of finding the most ironic tokens fro
 
 The first step in finding the tokens is to extract all tweets that were annotated as ironic from the training and testing datasets, keeping them separate so we can test the results of the experiment separately.
 We then classified those tweets using the RoBERTa model to obtain a confidence score for each label.
-Sorting the tweets regarding to their ironic label confidence score we obtained a list of the most ironic tweets in the datasets, accoring to the model.
+Sorting the tweets regarding to their ironic label confidence score we obtained a list of the most ironic tweets in the datasets, according to the model.
 The five most ironic tweets from the training and testing datasets can be seen in Table~\ref{tab:most-ironic-train} and ~\ref{tab:most-ironic-test} respectively.
 
 \begin{table*}
@@ -129,7 +129,7 @@ Having to be up in four hours sounds great                                      
 \end{center}
 \end{table*}
 
-Once we obtained the list of the most ironic tweets, we performe attention aggregation methods outlined in Section~\ref{sec:attaggr} and sort the tokens by the attention score in descending order.
+Once we obtained the list of the most ironic tweets, we performed attention aggregation methods outlined in Section~\ref{sec:attaggr} and sort the tokens by the attention score in descending order.
 That gives us a list of singular and two connected tokens that the model focused more while performing classification.
 A subset of obtained singular and token pairs for the tweet "Yay for getting pink eye again!  \#whyme" can be seen in Table~\ref{tab:attention-tokens-single} and ~\ref{tab:attention-tokens-pairs} respectively.
 
@@ -174,7 +174,7 @@ again               & Y & 0.6 \\
 For non ironic text, we randomly sampled 100 tweets, labeled as non ironic, from the train and test datasets.
 
 To add the ironic tokens into the non-ironic text we simply appended them to the end of the tweet. This was done for each token in the list applied to each tweet in the subset.
-We are aware that simply appending the token, or tokens, to the end of a tweet may generate something meaningless but ensuring that the newely formed tweet is semanticaly correct is out of the scope of this paper and we leave that for future work.
+We are aware that simply appending the token, or tokens, to the end of a tweet may generate something meaningless but ensuring that the newly formed tweet is semantically correct is out of the scope of this paper and we leave that for future work.
 
 \section{Results}
 

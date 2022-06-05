@@ -1,46 +1,46 @@
-This is BibTeX, Version 0.99d (TeX Live 2020)
+This is BibTeX, Version 0.99d (TeX Live 2022)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: tar-2022-paper-template.aux
 The style file: tar2022.bst
 Database file #1: tar2022.bib
-You've used 1 entry,
+You've used 6 entries,
             2490 wiz_defined-function locations,
-            556 strings with 4574 characters,
-and the built_in function-call counts, 299 in all, are:
-= -- 30
-> -- 7
-< -- 0
-+ -- 2
-- -- 2
-* -- 17
-:= -- 61
-add.period$ -- 4
-call.type$ -- 1
-change.case$ -- 5
-chr.to.int$ -- 1
-cite$ -- 1
-duplicate$ -- 14
-empty$ -- 22
-format.name$ -- 3
-if$ -- 57
+            584 strings with 5504 characters,
+and the built_in function-call counts, 2502 in all, are:
+= -- 252
+> -- 147
+< -- 1
++ -- 52
+- -- 52
+* -- 191
+:= -- 440
+add.period$ -- 25
+call.type$ -- 6
+change.case$ -- 50
+chr.to.int$ -- 6
+cite$ -- 6
+duplicate$ -- 95
+empty$ -- 146
+format.name$ -- 60
+if$ -- 496
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 1
-newline$ -- 9
-num.names$ -- 3
-pop$ -- 4
+missing$ -- 6
+newline$ -- 39
+num.names$ -- 18
+pop$ -- 48
 preamble$ -- 1
-purify$ -- 6
+purify$ -- 56
 quote$ -- 0
-skip$ -- 12
+skip$ -- 78
 stack$ -- 0
-substring$ -- 5
-swap$ -- 2
-text.length$ -- 0
+substring$ -- 54
+swap$ -- 19
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 8
+type$ -- 48
 warning$ -- 0
-while$ -- 2
-width$ -- 2
-write$ -- 16
+while$ -- 15
+width$ -- 7
+write$ -- 86

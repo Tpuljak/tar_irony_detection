@@ -1,9 +1,44 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\citename{Abnar and Zuidema}2020]{quantifying-attention-flow}
+S.~Abnar and W.~Zuidema.
+\newblock 2020.
+\newblock Quantifying attention flow in transformers.
+\newblock {\em arXiv preprint arXiv:2005.00928}.
+
+\bibitem[\protect\citename{Hee \bgroup et al.\egroup
+  }2018]{van-hee-etal-2018-semeval}
+C.~Van Hee, E.~Lefever, and V.~Hoste.
+\newblock 2018.
+\newblock {S}em{E}val-2018 task 3: Irony detection in {E}nglish tweets.
+\newblock In {\em Proceedings of The 12th International Workshop on Semantic
+  Evaluation}, pages 39--50, New Orleans, Louisiana, June. Association for
+  Computational Linguistics.
+
 \bibitem[\protect\citename{Kreuz}2020]{kreutz-20}
 Roger~J. Kreuz.
 \newblock 2020.
 \newblock What makes something ironic?
 \newblock {\em The Conversation}, February.
+
+\bibitem[\protect\citename{Liu \bgroup et al.\egroup }2019]{roberta}
+Y.~Liu, M.~Ott, N.~Goyal, J.~Du, M.~Joshi, D.~Chen, O.~Levy, M.~Lewis,
+  L.~Zettlemoyer, and V.~Stoyanov.
+\newblock 2019.
+\newblock Roberta: A robustly optimized bert pretraining approach.
+\newblock {\em arXiv preprint arXiv:1907.11692}.
+
+\bibitem[\protect\citename{Serrano and Smith}2019]{attention-interpretable}
+S.~Serrano and N.~A. Smith.
+\newblock 2019.
+\newblock Is attention interpretable?
+\newblock {\em arXiv preprint arXiv:1906.03731}.
+
+\bibitem[\protect\citename{Vaswani \bgroup et al.\egroup }2017]{all-you-need}
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,
+  L.~Kaiser, and I.~Polosukhin.
+\newblock 2017.
+\newblock Attention is all you need.
+\newblock {\em Advances in neural information processing systems}, 30.
 
 \end{thebibliography}
