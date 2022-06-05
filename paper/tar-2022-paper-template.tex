@@ -35,13 +35,13 @@ This document provides the instructions on formatting the TAR system description
 \section{Introduction}
 
 Irony is complicated.
-In general, irony refers to a clash between expectation and outcome of an expression. \citep{kreutz-20}. 
-While this definition looks simple enough, detecting irony in text proves to be a difficult task, not only for models, but for people as well.
+In general, irony refers to a clash between the expectation and outcome of an expression. \citep{kreutz-20}. 
+While this definition looks simple enough, detecting irony in text proves to be a difficult task, not only for models but for people as well.
 This paper tackles the question: "What makes tweets ironic?" by analysing attention values outputted from a classification model.
 
 The attention mechanism allows modeling of dependencies without regard to their distance in the input or output sequence \citep{all-you-need}.
-What's great about attention is that it adds a layer or explainability to the model. Attention values can be used to interpret the focus of a model when completing various tasks.
-In this paper, attention values are used to gather most ironic tokens from data samples. Most ironic tokens being those with the highest attention values.
+What's great about attention is that it adds a layer of explainability to the model. Attention values can be used to interpret the focus of a model when completing various tasks.
+In this paper, attention values are used to gather the most ironic tokens from data samples. The most ironic tokens are those with the highest attention values.
 
 For classification purposes, we used a pretrained RoBERTa Transformer model that was trained on the SemEval2018 Irony Detection dataset \citep{roberta}.
 The model uses multi-head attention, thus we used the \textit{attention rollout} method to aggregate attention values across heads for single tokens and connections between token pairs.
@@ -51,7 +51,7 @@ We use this change in prediction certainty as a metric to evaluate how much a to
 
 \section{Background}
 
-In this section, we provide an overview of the classification model setup, attention aggregation methods and the datasets evaluate our analysis goal.
+In this section, we provide an overview of the classification model setup, attention aggregation methods, and the datasets to evaluate our analysis goal.
 
 \subsection{Model Setup}
 \label{sec:first}
@@ -70,13 +70,13 @@ We considered the alternative of analysing all tokens from selected ironic tweet
 \subsection{Attention Aggregation}
 \label{sec:attaggr}
 
-To aggregate attention values into a singular output we use the \textit{attention rollout} method.
+To aggregate attention values into a singular output, we use the \textit{attention rollout} method.
 Attention rollout is a recursive method that calculates the product of all attention weights in the attention graph. \citep{quantifying-attention-flow}
 This method will compute a singular output for a single token (node) that we feed into it and if we squeeze the resulting matrix without extraction, we get attention values for two connected tokens in the input sentence.
 
 \subsection{Data}
 
-The dataset used to train the RoBERTa model for irony detection is the SemEval2018 Irony Detection dataset \citep{van-hee-etal-2018-semeval} which is presplit into training and testing sets.
+The dataset used to train the RoBERTa model for irony detection is the SemEval2018 Irony Detection dataset \citep{van-hee-etal-2018-semeval} which is split into training and testing sets.
 Each tweet is annotated with a binary label of 0 or 1, representing a non-ironic and ironic label respectively.
 
 We applied a simple preprocessing step for all tweets which changes all user tags to \textit{@user} and removes all URLs.
@@ -90,7 +90,7 @@ In this section, we will cover the process of finding the most ironic tokens fro
 
 The first step in finding the tokens is to extract all tweets that were annotated as ironic from the training and testing datasets, keeping them separate so we can test the results of the experiment separately.
 We then classified those tweets using the RoBERTa model to obtain a confidence score for each label.
-Sorting the tweets regarding to their ironic label confidence score we obtained a list of the most ironic tweets in the datasets, according to the model.
+By sorting the tweets using their ironic label confidence score as a sorting parameter we obtained a list of the most ironic tweets in the datasets, according to the model.
 The five most ironic tweets from the training and testing datasets can be seen in Table~\ref{tab:most-ironic-train} and ~\ref{tab:most-ironic-test} respectively.
 
 \begin{table*}
@@ -130,7 +130,7 @@ Having to be up in four hours sounds great                                      
 \end{table*}
 
 Once we obtained the list of the most ironic tweets, we performed attention aggregation methods outlined in Section~\ref{sec:attaggr} and sort the tokens by the attention score in descending order.
-That gives us a list of singular and two connected tokens that the model focused more while performing classification.
+That gives us a list of singular and two connected tokens that the model focused on more while performing classification.
 A subset of obtained singular and token pairs for the tweet "Yay for getting pink eye again!  \#whyme" can be seen in Table~\ref{tab:attention-tokens-single} and ~\ref{tab:attention-tokens-pairs} respectively.
 
 \begin{table*}
@@ -186,7 +186,7 @@ The results show that the token with the most influence on the ironic sentiment 
 
 \subsection{Token Pairs}
 
-We analysed 100 tweets paired with top 10 pairs of tokens from the top 20 most ironic tweets, producing a total of 19799 new tweets. A sample of the top and bottom 3 changes in non-ironic confidence scores in the train set can be seen in Table~\ref{tab:token-pair-train-results}, with the full results available at: (LINK TO GITHUB).
+We analysed 100 tweets paired with the top 10 pairs of tokens from the top 20 most ironic tweets, producing a total of 19799 new tweets. A sample of the top and bottom 3 changes in non-ironic confidence scores in the train set can be seen in Table~\ref{tab:token-pair-train-results}, with the full results available at: (LINK TO GITHUB).
 
 \begin{table*}
 \caption{Sample of Token Pair Results on the Train Set}
@@ -216,10 +216,10 @@ Intuetively, "wow" can be seen as a sarcastic or ironic token from a semantic pe
 
 \section{Future Work}
 
-Even though we have managed to change ironic sentiment by applying ironic tokens to tweets, we propose a more robust approach that takes into account that the semantics of a tweet remain intact after adding the token.
+Even though we have managed to change ironic sentiment by applying ironic tokens to tweets, we propose a more robust approach that takes into account that the semantics of a tweet remains intact after adding the token.
 Additionally, possible exploration of adding tokens at arbitrary points in the tweet, not only at the end.
 
-As mentioned, a higher attention score doesn't necessarily mean that a token is more ironic, thus in future work, we could explore different metrics for obtaining tokens which we want to analyse.
+As mentioned, a higher attention score doesn't necessarily mean that a token is more ironic, thus in future work, we could explore different metrics for obtaining tokens that we want to analyse.
 
 \section{Conclusion}
 
