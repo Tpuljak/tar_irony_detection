@@ -20,7 +20,7 @@
 \address{
 University of Zagreb, Faculty of Electrical Engineering and Computing\\
 Unska 3, 10000 Zagreb, Croatia\\ 
-\texttt{\{author\}@fer.hr}\\
+\texttt{\{toma.puljak, rene.kustura, kristian.djakovic\}@fer.hr}\\
 }
           
          
@@ -52,7 +52,7 @@ In this paper, attention values are used to gather the most ironic tokens from d
 For classification purposes, we used a pretrained RoBERTa Transformer model that was trained on the SemEval2018 Irony Detection dataset \citep{roberta}.
 The model uses multi-head attention, thus we used the \textit{attention rollout} method to aggregate attention values across heads for single tokens and connections between token pairs.
 
-We gather the most ironic tokens and apply them to tweets sample from the training and testing datasets and observe the change between the non-ironic prediction confidence score.
+We gather the most ironic tokens and apply them to tweets sampled from the training and testing datasets and observe the change between the non-ironic prediction confidence score.
 We use this change in prediction confidence score as a metric to evaluate how much a token, or token pair, impacts the ironic sentiment of a given tweet.
 
 \section{Background}
@@ -63,7 +63,8 @@ In this section, we provide an overview of the classification model setup, atten
 \label{sec:first}
 
 For classification purposes, we used a pretrained RoBERTa Transformer model that had the best performance in irony detection.
-The model can be found here: \url{https://huggingface.co/cardiffnlp/twitter-roberta-base-irony}.
+The model can be found here:
+\footnote{\url{https://huggingface.co/cardiffnlp/twitter-roberta-base-irony}} 
 RoBERTa is a retrained BERT model with improved performance. The details of the architecture can be found in \citep{roberta}. 
 
 \subsection{Attention as an Interpretation Metric}
@@ -194,7 +195,7 @@ We analysed 100 tweets paired with the top 10 tokens from the top 10 most ironic
 This produced 9200 and 9600 new tweets from the train and test sets respectively.
 Because some tweets had less than 10 tokens, there were only 92 and 96 tokens to append in total.
 
-A sample of the top 3 and bottom 3 changes in non-ironic confidence scores in the training can be seen in Table~\ref{tab:token-single-train-results}, with the full results available at \url{https://github.com/Tpuljak/tar_irony_detection/blob/main/results/added_irony_train_singles.txt?raw=true}.
+A sample of the top 3 and bottom 3 changes in non-ironic confidence scores in the training can be seen in Table~\ref{tab:token-single-train-results}, with the full results available at \footnote{\url{https://github.com/Tpuljak/tar_irony_detection/blob/main/results/added_irony_train_singles.txt?raw=true}}.
 
 \begin{table*}
 \caption{Sample of Single Token Results on the Train Set}
@@ -223,12 +224,12 @@ The bottom three changes show that tweet "Why I love penguins of Madagascar  \#h
 Even though the appended tokens do not represent any semantic meaning, we managed to flip the sentiment of the RoBERTa classifier.
 
 For brevity, we will not analyse test set results here, but only mention that the top and bottom token pairs were, again, "great" and "how" respectively.
-The full test set results can be seen here \url{https://github.com/Tpuljak/tar_irony_detection/blob/main/results/added_irony_test_singles.txt?raw=true}.
+The full test set results can be seen here \footnote{\url{https://github.com/Tpuljak/tar_irony_detection/blob/main/results/added_irony_test_singles.txt?raw=true}}.
 
 \subsection{Token Pairs}
 
 We analysed 100 tweets paired with the top 10 pairs of tokens from the top 20 most ironic tweets, producing a total of 20 000 new tweets.
-A sample of the top and bottom 3 changes in non-ironic confidence scores in the train set can be seen in Table~\ref{tab:token-pair-train-results}, with the full results available at \url{https://github.com/Tpuljak/tar_irony_detection/blob/main/results/added_irony_train_pairs.txt?raw=true}.
+A sample of the top and bottom 3 changes in non-ironic confidence scores in the train set can be seen in Table~\ref{tab:token-pair-train-results}, with the full results available at \footnote{\url{https://github.com/Tpuljak/tar_irony_detection/blob/main/results/added_irony_train_pairs.txt?raw=true}}.
 
 \begin{table*}
 \caption{Sample of Token Pair Results on the Train Set}
@@ -256,10 +257,10 @@ Even though the tweet was actually labeled as ironic before appending the tokens
 This is in line with the results from the previous section.
 
 Regarding the tokens that most influenced the ironic sentiment, it is interesting to see token pair "wow \textvisiblespace ".
-Intuetively, "wow" can be seen as a sarcastic or ironic token from a semantic perspective, thus it is expect that it would change the ironic sentiment of a tweet.
+Intuitively, "wow" can be seen as a sarcastic or ironic token from a semantic perspective, thus it is expect that it would change the ironic sentiment of a tweet.
 
 For brevity, we will not analyse test set results here, but only mention that the top and bottom token pairs were "Thanks @" and "up be" respectively.
-The full test set results can be seen here \url{https://github.com/Tpuljak/tar_irony_detection/blob/main/results/added_irony_test_pairs.txt?raw=true}.
+The full test set results can be seen here  \footnote{\url{https://github.com/Tpuljak/tar_irony_detection/blob/main/results/added_irony_test_pairs.txt?raw=true}}.
 
 \section{Future Work}
 
